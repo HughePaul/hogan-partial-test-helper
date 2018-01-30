@@ -1,0 +1,30 @@
+{
+  "name": "hogan-partial-test-helper",
+  "version": "1.0.0",
+  "description": "Helper for testing hogan templates",
+  "main": "index.js",
+  "author": "Paul Winkler",
+  "dependencies": {
+    "async": "^2.6.0",
+    "glob": "^7.1.2",
+    "hogan.js": "^3.0.2"
+  },
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HughePaul/hogan-partial-test-helper.git"
+  },
+  "keywords": [
+    "hogan",
+    "test",
+    "helper",
+    "partials"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HughePaul/hogan-partial-test-helper/issues"
+  },
+  "homepage": "https://github.com/HughePaul/hogan-partial-test-helper#readme"
+}
