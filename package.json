@@ -1,6 +1,6 @@
 {
   "name": "hogan-partial-test-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Helper for testing hogan templates",
   "main": "index.js",
   "author": "Paul Winkler",
