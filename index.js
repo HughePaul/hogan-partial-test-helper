@@ -31,8 +31,10 @@ class Templates {
                     }, done);
                 });
 
-            if (stats.isFile())
-                return this.loadOne(prefix, base, done);
+            if (stats.isFile()) {
+                let key = prefix || path.basename(base, '.html');
+                return this.loadOne(key, base, done);
+            }
 
             done(new Error(`${base} is not a file or a directory`));
         });
@@ -46,7 +48,7 @@ class Templates {
     }
 
     get(key) {
-        return this.partials[key];
+        return this.partials[key.replace(/\//g, '-')];
     }
 
     compile(key) {
