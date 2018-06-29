@@ -22,11 +22,15 @@ class Templates {
             async.each(files, (filename, done) => {
                 let key = path.relative(base, filename).replace(/\//g, '-').replace('.html', '');
                 if (prefix && prefix !== 'ROOT') key = prefix + '-' + key;
-                fs.readFile(filename, 'utf8', (err, content) => {
-                    this.partials[key] = content;
-                    done(err);
-                });
+                this.loadOne(key, filename, done);
             }, done);
+        });
+    }
+
+    loadOne(key, filename, done) {
+        fs.readFile(filename, 'utf8', (err, content) => {
+            this.partials[key] = content;
+            done(err);
         });
     }
 
