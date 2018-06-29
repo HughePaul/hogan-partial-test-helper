@@ -16,10 +16,12 @@ class Templates {
     }
 
     load(base, prefix, done) {
+        if (typeof prefix === 'function') { done = prefix; prefix = null; }
         glob(base + '/**/*.html', {}, (err, files) => {
             if (err) return done(err);
             async.each(files, (filename, done) => {
-                let key = prefix + '-' + path.relative(base, filename).replace(/\//g, '-').replace('.html', '');
+                let key = path.relative(base, filename).replace(/\//g, '-').replace('.html', '');
+                if (prefix && prefix !== 'ROOT') key = prefix + '-' + key;
                 fs.readFile(filename, 'utf8', (err, content) => {
                     this.partials[key] = content;
                     done(err);
