@@ -17,13 +17,24 @@ class Templates {
 
     load(base, prefix, done) {
         if (typeof prefix === 'function') { done = prefix; prefix = null; }
-        glob(base + '/**/*.html', {}, (err, files) => {
+
+        fs.stat(base, (err, stats) =>{
             if (err) return done(err);
-            async.each(files, (filename, done) => {
-                let key = path.relative(base, filename).replace(/\//g, '-').replace('.html', '');
-                if (prefix && prefix !== 'ROOT') key = prefix + '-' + key;
-                this.loadOne(key, filename, done);
-            }, done);
+
+            if (stats.isDirectory())
+                return glob(base + '/**/*.html', {}, (err, files) => {
+                    if (err) return done(err);
+                    async.each(files, (filename, done) => {
+                        let key = path.relative(base, filename).replace(/\//g, '-').replace('.html', '');
+                        if (prefix && prefix !== 'ROOT') key = prefix + '-' + key;
+                        this.loadOne(key, filename, done);
+                    }, done);
+                });
+
+            if (stats.isFile())
+                return this.loadOne(prefix, base, done);
+
+            done(new Error(`${base} is not a file or a directory`));
         });
     }
 
